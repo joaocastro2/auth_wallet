@@ -1,0 +1,17 @@
+server:
+  port: 8082 # Porta diferente do Portfolio-Service (8080)
+spring:
+  application:
+    name: auth-service
+  datasource:
+    url: jdbc:postgresql://localhost:5433/wallet_auth_db
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate # Apenas valida se as entidades casam com o Flyway
+    show-sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
