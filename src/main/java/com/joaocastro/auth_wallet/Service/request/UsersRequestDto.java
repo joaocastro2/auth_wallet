@@ -1,10 +1,12 @@
 package com.joaocastro.auth_wallet.Service.request;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record UsersRequestDto(
 
-        String userName,
-        String userCpf,
-        String userMail,
-        String userPassword
+        @NotBlank String userName,
+        @NotBlank String userCpf,
+        @NotBlank String userMail,
+        @NotBlank String userPassword
 
 ){}
