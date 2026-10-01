@@ -6,6 +6,9 @@ import com.joaocastro.auth_wallet.model.UsersModel;
 import com.joaocastro.auth_wallet.repository.UsersRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class UsersService {
@@ -32,5 +35,13 @@ public class UsersService {
 
         UsersModel savedUser = usersRepository.save(usersModel);
         return new UsersResponseDto(savedUser.getUserId(), savedUser.getUserCpf(), savedUser.getUserName(), savedUser.getUserMail(), savedUser.getCreatedAt());
+    }
+
+    @Transactional(readOnly = true)
+    public List<UsersResponseDto> findAll() {
+        return usersRepository.findAll()
+                .stream()
+                .map(UsersResponseDto::fromEntity)
+                .toList();
     }
 }

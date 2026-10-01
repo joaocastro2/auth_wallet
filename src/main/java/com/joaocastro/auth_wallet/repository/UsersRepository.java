@@ -11,6 +11,8 @@ import java.util.UUID;
 @Repository
 public interface UsersRepository extends JpaRepository<UsersModel, UUID> {
 
+    List<UsersModel>findAll();
+
     boolean existsByUserCpf(String userCpf);
 
 }
