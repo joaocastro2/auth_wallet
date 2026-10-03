@@ -34,7 +34,7 @@ public class UsersService {
                 .build();
 
         UsersModel savedUser = usersRepository.save(usersModel);
-        return new UsersResponseDto(savedUser.getUserId(), savedUser.getUserCpf(), savedUser.getUserName(), savedUser.getUserMail(), savedUser.getCreatedAt());
+        return new UsersResponseDto(savedUser.getUserId(), savedUser.getUserCpf(), savedUser.getUsername(), savedUser.getUserMail(), savedUser.getCreatedAt());
     }
 
     @Transactional(readOnly = true)
