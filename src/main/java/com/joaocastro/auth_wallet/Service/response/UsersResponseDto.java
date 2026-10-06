@@ -11,6 +11,7 @@ public record UsersResponseDto(
         String userCpf,
         String userName,
         String userMail,
+        String userPassword,
         LocalDateTime createdAt
 ) {
 
@@ -18,8 +19,9 @@ public record UsersResponseDto(
         return new UsersResponseDto(
                 users.getUserId(),
                 users.getUserCpf(),
-                users.getUserName(),
+                users.getUsername(),
                 users.getUserMail(),
+                users.getUserPassword(),
                 users.getCreatedAt()
         );
     }

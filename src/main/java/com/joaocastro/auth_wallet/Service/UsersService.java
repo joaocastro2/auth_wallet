@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -34,7 +35,7 @@ public class UsersService {
                 .build();
 
         UsersModel savedUser = usersRepository.save(usersModel);
-        return new UsersResponseDto(savedUser.getUserId(), savedUser.getUserCpf(), savedUser.getUsername(), savedUser.getUserMail(), savedUser.getCreatedAt());
+        return new UsersResponseDto(savedUser.getUserId(), savedUser.getUserCpf(), savedUser.getUsername(), savedUser.getUserMail(), savedUser.getUserPassword(), savedUser.getCreatedAt());
     }
 
     @Transactional(readOnly = true)
