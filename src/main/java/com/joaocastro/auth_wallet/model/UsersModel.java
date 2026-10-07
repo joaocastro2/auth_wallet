@@ -55,12 +55,12 @@ public class UsersModel implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "";
+        return this.userPassword;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return this.getUserMail();
     }
 
     @Override
