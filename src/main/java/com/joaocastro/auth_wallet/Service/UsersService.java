@@ -2,6 +2,8 @@ package com.joaocastro.auth_wallet.Service;
 
 import com.joaocastro.auth_wallet.Service.request.UsersRequestDto;
 import com.joaocastro.auth_wallet.Service.response.UsersResponseDto;
+import com.joaocastro.auth_wallet.kafka.event.UserCreatedEvent;
+import com.joaocastro.auth_wallet.kafka.producer.UserProducer;
 import com.joaocastro.auth_wallet.model.UsersModel;
 import com.joaocastro.auth_wallet.repository.UsersRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,10 +18,12 @@ public class UsersService {
 
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserProducer userProducer;
 
-    public UsersService(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
+    public UsersService(UsersRepository usersRepository, PasswordEncoder passwordEncoder, UserProducer userProducer) {
         this.usersRepository = usersRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userProducer = userProducer;
     }
 
     public UsersResponseDto registerUser(UsersRequestDto usersRequest){
@@ -35,6 +39,15 @@ public class UsersService {
                 .build();
 
         UsersModel savedUser = usersRepository.save(usersModel);
+
+        UserCreatedEvent event = new UserCreatedEvent(
+                savedUser.getUserId(),
+                savedUser.getUsername(),
+                savedUser.getUserMail(),
+                savedUser.getCreatedAt()
+        );
+        userProducer.publishUserCreated(event);
+
         return new UsersResponseDto(savedUser.getUserId(), savedUser.getUserCpf(), savedUser.getUsername(), savedUser.getUserMail(), savedUser.getUserPassword(), savedUser.getCreatedAt());
     }
 
