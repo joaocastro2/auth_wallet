@@ -46,6 +46,10 @@ public class UsersModel implements UserDetails {
         }
     }
 
+    public String getUserName() {
+        return this.userName;
+    }
+
     //mandatory implementations of UserDetails
 
     @Override

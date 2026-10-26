@@ -42,13 +42,13 @@ public class UsersService {
 
         UserCreatedEvent event = new UserCreatedEvent(
                 savedUser.getUserId(),
-                savedUser.getUsername(),
+                savedUser.getUserName(),
                 savedUser.getUserMail(),
                 savedUser.getCreatedAt()
         );
         userProducer.publishUserCreated(event);
 
-        return new UsersResponseDto(savedUser.getUserId(), savedUser.getUserCpf(), savedUser.getUsername(), savedUser.getUserMail(), savedUser.getUserPassword(), savedUser.getCreatedAt());
+        return new UsersResponseDto(savedUser.getUserId(), savedUser.getUserCpf(), savedUser.getUserName(), savedUser.getUserMail(), savedUser.getCreatedAt());
     }
 
     @Transactional(readOnly = true)

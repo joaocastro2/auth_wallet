@@ -28,7 +28,7 @@ public class TokenService {
         return Jwts.builder()
                 .setSubject(usersModel.getUserId().toString())
                 .claim("email", usersModel.getUserMail())
-                .claim("name", usersModel.getUsername())
+                .claim("name", usersModel.getUserName())
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(key, SignatureAlgorithm.HS256)
